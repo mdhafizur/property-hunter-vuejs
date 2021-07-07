@@ -1,0 +1,8 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/VerifyEmail.js": "/js/VerifyEmail.js",
+    "/js/VerifyOTP.js": "/js/VerifyOTP.js",
+    "/js/ConfirmAccount.js": "/js/ConfirmAccount.js",
+    "/js/ResetPassword.js": "/js/ResetPassword.js",
+    "/css/app.css": "/css/app.css"
+}
