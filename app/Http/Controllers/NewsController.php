@@ -404,9 +404,12 @@ class NewsController extends Controller
 
         try {
             $news = News::findOrFail($id);
-            $news['cover'] = Attachment::where([['item_id', '=', $id], ['item_type', '=', 'news'], ['attachment_type', '=', 'news_cover']])->get();
-            $news['photos'] = Attachment::where([['item_id', '=', $id], ['item_type', '=', 'news'], ['attachment_type', '=', 'news_photo']])->get();
-            $news['wides'] = Attachment::where([['item_id', '=', $id], ['item_type', '=', 'news'], ['attachment_type', '=', 'news_wide']])->get();
+            // $news['cover'] = Attachment::where([['item_id', '=', $id], ['item_type', '=', 'news'], ['attachment_type', '=', 'news_cover']])->get();
+            $news['cover'] =  $news->attachments()->where('attachment_type', '=', 'news_cover')->get();
+            $news['photos'] =  $news->attachments()->where('attachment_type', '=', 'news_photo')->get();
+            $news['wides'] =  $news->attachments()->where('attachment_type', '=', 'news_wide')->get();
+
+
             $news['accordions'] = Attachment::where([['item_id', '=', $id], ['item_type', '=', 'news'], ['attachment_type', '=', 'news_accordion']])->get();
 
 
