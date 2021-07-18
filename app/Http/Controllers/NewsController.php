@@ -494,16 +494,16 @@ class NewsController extends Controller
     {
         //
 
-        $db = DB::delete("DELETE FROM news WHERE id=?", [$id]);
+        // $db = DB::delete("DELETE FROM news WHERE id=?", [$id]);
 
-        if ($db) {
-            return response()->json(null, 204);
-        } else {
-            return response()->json([
-                'code' => 'FAILURE',
-                'data' => 'No data available',
-                'message' => 'News not found'
-            ], 404);
-        }
+        // if ($db) {
+        //     return response()->json(null, 204);
+        // } else {
+        //     return response()->json([
+        //         'code' => 'FAILURE',
+        //         'data' => 'No data available',
+        //         'message' => 'News not found'
+        //     ], 404);
+        // }
     }
 }
