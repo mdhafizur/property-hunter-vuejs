@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PropertyType extends Model
 {
     use HasFactory;
+
+    public function property()
+    {
+        return $this->belongsTo(Property::class, 'property_type_id', 'id');
+    }
 }

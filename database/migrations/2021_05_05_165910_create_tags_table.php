@@ -31,7 +31,7 @@ class CreateTagsTable extends Migration
             $table->primary(['news_id', 'tag_id']);
         });
 
-        Schema::create('developments_tag', function (Blueprint $table) {
+        Schema::create('development_tag', function (Blueprint $table) {
             $table->integer('developments_id');
             $table->integer('tag_id');
             $table->primary(['developments_id', 'tag_id']);

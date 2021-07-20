@@ -14,7 +14,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NewsController;
-
+use App\Http\Controllers\AttachmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +68,9 @@ Route::group(['middleware' => ['json.response']], function () {
     // OTP code
     Route::get('/otp/send', [VerificationController::class, 'sendOTP'])->middleware('verified');
     Route::get('/otp/verify/{code}', [VerificationController::class, 'verifyOTP']);
+
+    //upload file
+    Route::post('/upload', [AttachmentController::class, 'store']);
 });
 
 

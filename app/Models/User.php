@@ -45,6 +45,21 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function developments()
+    {
+        return $this->hasMany(NewDevelopment::class, 'created_by', 'id');
+    }
+
+    public function properties()
+    {
+        return $this->hasMany(Property::class, 'created_by', 'id');
+    }
+
+    public function news()
+    {
+        return $this->hasMany(News::class, 'created_by', 'id');
+    }
+
     // send customize password reset template
     public function sendPasswordResetNotification($token)
     {
@@ -62,5 +77,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new VerifyEmailNotification);
     }
-
 }

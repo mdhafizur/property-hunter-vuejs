@@ -9,8 +9,11 @@ class News extends Model
 {
     use HasFactory;
 
+    protected $fillable = [];
+    protected $guarded = ['created_at','updated_at'];
+
     public function attachments()
     {
-        return $this->hasMany(Attachment::class, 'item_id', 'id')->where('item_type', '=', 'news');
+        return $this->hasone(Attachment::class, 'item_id', 'id')->where('item_type', '=', 'news');
     }
 }
