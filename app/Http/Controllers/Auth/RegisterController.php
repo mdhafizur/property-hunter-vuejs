@@ -107,7 +107,7 @@ class RegisterController extends Controller
 
             unset($data['user']['password_confirmation']);
             $data['user']['OTP'] = $otp;
-            $data['user']['api_token'] = $api_token;
+            // $data['user']['api_token'] = $api_token;
             $data['user']['subscription'] = $subscription;
             // $data['user']['password'] = bcrypt($data['user']['password']);
             $data['user']['password'] = Hash::make($data['user']['password']);

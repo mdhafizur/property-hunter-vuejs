@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Exception;
+
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -58,6 +61,56 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                // 'id' => 'required|unique:article|integer',
+                // 'created_by' => 'required|string|max:255',
+                'title' => 'required',
+                // 'cover.image' => ['image', 'mimes:jpeg,bmp,png', 'required'],
+                // 'wides.*' => ['nullable'],
+                // 'photos.*' => ['nullable'],
+                // 'photos.*.image' => ['image', 'nullable'],
+                // 'wides.*.image' => ['image', 'nullable'],
+            ],
+            $messages = [
+                // 'cover.image.image' => 'The cover image must be an image.',
+                // 'cover.image.mimes' => 'The cover image must be a file of type: jpeg, bmp, png.',
+                // 'cover.image.required' => 'The cover image field is required.',
+            ]
+
+        );
+
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()], 422);
+        } else {
+            try {
+                $article = new Article();
+                $article->alias = Str::slug($request->title);
+
+                $article->title = $request->title;
+                $article->content = $request->content;
+                $article->category = $request->category;
+                $article->written_by = $request->written_by;
+                $article->article_source_from = $request->article_source_from;
+                $article->photo_source_and_credit_to = $request->photo_source_and_credit_to;
+                $article->featured_publish_date = $request->featured_publish_date;
+                $article->featured_expiry_date = $request->featured_expiry_date;
+                // $article->created_by = Auth::user();
+                $article->id = 1;
+
+                $article->save();
+                $article->refresh();
+
+                return response()->json([
+                    'code' => 'OK_RESPONSE',
+                    'data' =>   $article,
+                    'message' => 'News Created'
+                ], 201);
+            } catch (Exception  $stock) {
+                return response()->json($stock, 400);
+            }
+        }
     }
 
     /**
@@ -70,13 +123,13 @@ class ArticleController extends Controller
     {
         try {
             $article = Article::findOrFail($alias);
-            // $news['cover'] = Attachment::where([['item_id', '=', $id], ['item_type', '=', 'news'], ['attachment_type', '=', 'cover']])->get();
-            $article['cover'] =  $article->attachments()->where('attachment_type', '=', 'cover')->get();
-            $article['photos'] =  $article->attachments()->where('attachment_type', '=', 'photo')->get();
-            $article['wides'] =  $article->attachments()->where('attachment_type', '=', 'wide')->get();
+            // return $article;
 
+            $article['cover'] =  $article->attachments()->where([['item_type', '=', $article['category']], ['attachment_type', '=', 'cover']])->get();
+            $article['photos'] =  $article->attachments()->where([['item_type', '=', $article['category']], ['attachment_type', '=', 'photo']])->get();
+            $article['wides'] =  $article->attachments()->where([['item_type', '=', $article['category']], ['attachment_type', '=', 'wide']])->get();
+            $article['accordions'] =  $article->attachments()->where([['item_type', '=', $article['category']], ['attachment_type', '=', 'accordion']])->get();
 
-            $article['accordions'] = Article::where([['item_id', '=', $alias], ['item_type', '=', 'news'], ['attachment_type', '=', 'accordion']])->get();
 
 
 
@@ -84,7 +137,7 @@ class ArticleController extends Controller
                 return response()->json([
                     'code' => 'Success',
                     'data' => $article,
-                    'message' => 'News Found'
+                    'message' => 'Article Found'
                 ], 200);
             } else {
                 return response()->json(null, 404);

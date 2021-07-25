@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Storage;
 
 class AttachmentController extends Controller
 {
+
+    private $uploads = array();
+
     /**
      * Display a listing of the resource.
      *
@@ -29,6 +32,29 @@ class AttachmentController extends Controller
         //
     }
 
+    public function  save($request, $attachment_type, $image_path, $filename, $extension, $title, $caption, $order, $cover)
+    {
+        $attachment = new Attachment([
+            'item_id' => $request->item_id,
+            'item_type' => $request->item_type,
+            'attachment_type' => $attachment_type,
+            'path' => $image_path,
+            'file_name' => $filename,
+            'extension' => $extension,
+            'title' => $title,
+            'caption' => $caption,
+            'cover' => $cover,
+            'publish' => true,
+            'order' => $order,
+            'status' => 'ACTIVE',
+        ]);
+
+        $attachment->save();
+        $attachment->refresh();
+
+        array_push($this->uploads, $attachment);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -37,7 +63,7 @@ class AttachmentController extends Controller
      */
     public function store(Request $request)
     {
-
+        // return $request;
 
         if (isset($request->id)) {
             if (true) {
@@ -50,7 +76,7 @@ class AttachmentController extends Controller
                     //get filename without extension
                     $extension = $request->image->extension();
                     // save the main image with original size
-                    $image_path = ($request->image)->storeAs('uploads/' . $attachment['item_type'] . '/' . $attachment['attachment_type'], Str::slug($request->title) . '-' . $attachment['attachment_type'] . '-' . time() . '.' . $extension, 'public');
+                    $image_path = ($request->image)->storeAs('uploads/' . $attachment['item_type'] . '/' . $attachment['attachment_type'] . 's', Str::slug($request->title) . '-' . $attachment['attachment_type'] . '-' . time() . '.' . $extension, 'public');
                 }
                 $attachment->title = $request->title;
                 $attachment->caption = $request->caption;
@@ -62,83 +88,90 @@ class AttachmentController extends Controller
             }
         } else {
 
-            $uploads = [];
             $cover = 0;
-            $filess =  $request->all();
 
-            foreach ($filess as $key => $files) {
-                if ($key != "item_id" && $key != "id") {
-                    if ($key == 'cover') {
-                        $cover = 1;
-                        $order = 0;
-                        $attachment_type = "news_cover";
-                        if (isset($files['image'])) {
-                            $filename = isset($files['title']) ? Str::slug($files['title']) . '-cover' : $files['image']->getClientOriginalName();
-                            //get filename without extension
-                            $extension = ($request->cover['image'])->extension();
-                            // save the main image with original size
-                            $image_path = ($request->cover['image'])->storeAs('uploads/news/covers', $filename . '-' . time() . '.' . $extension, 'public');
-                        }
-                    } elseif ($key == 'photos') {
-                        foreach ($files as $index => $file) {
-                            // return $file;
-                            $attachment_type = "news_photo";
-                            $order = $index;
+            if ($request->has('item_id') && $request->has('item_type')) {
 
-                            if (isset($file['image'])) {
-                                // $name = ($photo['image'])->getClientOriginalName();
-                                //get original name of the file
-                                $filename = isset($file['title']) ? Str::slug($file['title']) . '-photo'  : $file['image']->getClientOriginalName();
-                                //get filename without extension
-                                $extension = ($file['image'])->extension();
-                                // save the main image with original size
-                                $image_path = ($file['image'])->storeAs('uploads/news/photos', $filename . '-' . time() . '.' . $extension, 'public');
-                            }
-                        }
-                    } elseif ($key == 'wides') {
-                        foreach ($files as $index => $file) {
-                            // return $file;
-                            $attachment_type = "news_wide";
 
-                            $order = $index;
-
-                            if (isset($file['image'])) {
-                                // $name = ($photo['image'])->getClientOriginalName();
-                                //get original name of the file
-                                $filename = isset($file['title']) ? Str::slug($file['title']) . '-wide'   : $file['image']->getClientOriginalName();
-
-                                //get filename without extension
-                                $extension = ($file['image'])->extension();
-                                // save the main image with original size
-                                $image_path = ($file['image'])->storeAs('uploads/news/wides', $filename .  '-' . time() . '.' . $extension, 'public');
-                            }
-                        }
+                if ($request->has('cover')) {
+                    $cover = 1;
+                    $order = 0;
+                    $attachment_type = "cover";
+                    $title = $request->cover['title'];
+                    $caption = $request->cover['caption'];
+                    if (isset($request->cover['image'])) {
+                        $filename = isset($request->cover['title']) ? Str::slug($request->cover['title']) . '-cover' : $request->cover['image']->getClientOriginalName();
+                        //get filename without extension
+                        $extension = ($request->cover['image'])->extension();
+                        // save the main image with original size
+                        $image_path = ($request->cover['image'])->storeAs('uploads/' . $request->item_type . '/covers', $filename . '-' . time() . '.' . $extension, 'public');
                     }
+                    $this->save($request, $attachment_type, $image_path, $filename, $extension, $title, $caption, $order, $cover);
+                }
 
-                    $attachment = new Attachment([
-                        'item_id' => $request->item_id,
-                        'item_type' => 'news',
-                        'attachment_type' => $attachment_type,
-                        'path' => $image_path,
-                        'file_name' => $filename,
-                        'extension' => $extension,
-                        'title' => $request->cover['title'],
-                        'caption' => $request->cover['caption'],
-                        'cover' => $cover,
-                        'publish' => true,
-                        'order' => $order,
-                        'status' => 'ACTIVE',
-                    ]);
+                if ($request->has('photos')) {
+                    foreach ($request->photos as $index => $file) {
+                        $attachment_type = "photo";
+                        $title = $file['title'];
+                        $caption = $file['caption'];
+                        $order = $index;
+                        $cover = 0;
 
-                    $attachment->save();
-                    $attachment->refresh();
+                        if (isset($file['image'])) {
+                            // $name = ($photo['image'])->getClientOriginalName();
+                            //get original name of the file
+                            $filename = isset($file['title']) ? Str::slug($file['title']) . '-photo'  : $file['image']->getClientOriginalName();
+                            //get filename without extension
+                            $extension = ($file['image'])->extension();
+                            // save the main image with original size
+                            $image_path = ($file['image'])->storeAs('uploads/' . $request->item_type . '/photos', $filename . '-' . time() . '.' . $extension, 'public');
+                        }
+                        $this->save($request, $attachment_type, $image_path, $filename, $extension, $title, $caption, $order, $cover);
+                    }
+                }
 
-                    array_push($uploads, $attachment);
+                if ($request->has('wides')) {
+                    foreach ($request->wides as $index => $file) {
+                        $attachment_type = "wide";
+                        $title = $file['title'];
+                        $caption = $file['caption'];
+                        $order = $index;
+                        $cover = 0;
+
+                        if (isset($file['image'])) {
+                            // $name = ($photo['image'])->getClientOriginalName();
+                            //get original name of the file
+                            $filename = isset($file['title']) ? Str::slug($file['title']) . '-wide'   : $file['image']->getClientOriginalName();
+
+                            //get filename without extension
+                            $extension = ($file['image'])->extension();
+                            // save the main image with original size
+                            $image_path = ($file['image'])->storeAs('uploads/' . $request->item_type . '/wides', $filename .  '-' . time() . '.' . $extension, 'public');
+                        }
+                        $this->save($request, $attachment_type, $image_path, $filename, $extension, $title, $caption, $order, $cover);
+                    }
+                }
+
+                if ($request->has('accordions')) {
+                    foreach ($request->accordions as $index => $file) {
+                        $attachment_type = "accordion";
+                        $title = $file['title'];
+                        $caption = $file['caption'];
+                        $order = $index;
+                        $cover = 0;
+
+                        $filename = 'accordion';
+                        $extension = 'accordion';
+                        $image_path = 'accordion';
+                        $this->save($request, $attachment_type, $image_path, $filename, $extension, $title, $caption, $order, $cover);
+                    }
                 }
             }
-            return $uploads;
+            return $this->uploads;
         }
     }
+
+
 
     /**
      * Display the specified resource.

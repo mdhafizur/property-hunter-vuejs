@@ -4,10 +4,5 @@
     "/js/VerifyOTP.js": "/js/VerifyOTP.js",
     "/js/ConfirmAccount.js": "/js/ConfirmAccount.js",
     "/js/ResetPassword.js": "/js/ResetPassword.js",
-    "/js/NewsModule.js": "/js/NewsModule.js",
-    "/js/NewsCreate.js": "/js/NewsCreate.js",
-    "/js/NewsIndex.js": "/js/NewsIndex.js",
-    "/js/NewsEdit.js": "/js/NewsEdit.js",
-    "/js/NewsShow.js": "/js/NewsShow.js",
     "/css/app.css": "/css/app.css"
 }

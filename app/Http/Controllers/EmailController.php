@@ -18,17 +18,12 @@ class EmailController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                // 'id' => 'required|unique:news|integer',
-                // 'created_by' => 'required|string|max:255',
+
                 'recipient' => 'required|string',
                 'subject' => 'required|string',
                 'from' => 'required|string',
                 'content' => 'required|string',
-                // 'cover.image' => ['image', 'mimes:jpeg,bmp,png', 'required'],
-                // 'wides.*' => ['nullable'],
-                // 'photos.*' => ['nullable'],
-                // 'photos.*.image' => ['image', 'nullable'],
-                // 'wides.*.image' => ['image', 'nullable'],
+
             ],
         );
 

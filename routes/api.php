@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AttachmentController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\TagController;
 
@@ -47,11 +48,11 @@ Route::delete('/news/{id}', [NewsController::class, 'destroy']);
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
 
-Route::post('/articles', [ArticlesController::class, 'store']);
-Route::put('/articles', [ArticlesController::class, 'update']);
-Route::delete('/articles/{id}', [ArticlesController::class, 'destroy']);
-Route::get('/articles', [ArticlesController::class, 'index']);
-Route::get('/articles/{alias}', [ArticlesController::class, 'show']);
+Route::post('/articles', [ArticleController::class, 'store']);
+Route::put('/articles', [ArticleController::class, 'update']);
+Route::delete('/articles/{id}', [ArticleController::class, 'destroy']);
+Route::get('/articles', [ArticleController::class, 'index']);
+Route::get('/articles/{id}', [ArticleController::class, 'show']);
 
 Route::post('/register', [RegisterController::class, 'create']);
 Route::post('/login', [LoginController::class, 'login']);

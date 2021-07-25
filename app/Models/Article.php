@@ -14,6 +14,6 @@ class Article extends Model
 
     public function attachments()
     {
-        return $this->hasmany(Attachment::class, 'item_id', 'id');
+        return $this->hasMany(Attachment::class, 'item_id', 'id');
     }
 }
