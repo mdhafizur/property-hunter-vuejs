@@ -1,0 +1,397 @@
+.nav {
+    .nav-item{
+        .nav-link:hover,
+        .nav-link:focus{
+            background-color: transparent;
+        }
+    }
+
+}
+
+.navbar{
+    background-color: $white-navbar;
+    border: $none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    font-size: $font-size-navbar;
+    min-height: 50px;
+    padding: 5px 15px;
+
+    .navbar-brand {
+        color: $default-color;
+        font-size: 20px;
+        font-weight: 400;
+        margin: 5px 0;
+
+        &:hover{
+            color: #5e5e5e;
+        }
+    }
+
+    .navbar-toggler{
+        cursor: pointer;
+        height: 27px;
+        outline: 0;
+        vertical-align: middle;
+        width: 37px;
+
+        &.navbar-toggler-left{
+            left: 0;
+            padding-left: 0;
+            position: relative;
+        }
+
+        & .navbar-toggler-bar{
+            border-radius: 50%;
+            height: 3px;
+            margin: 0 auto;
+            width: 3px;
+        }
+
+        .burger-lines{
+            background-color: #888;
+            border-radius: 1px;
+            display: block;
+            height: 2px;
+            margin: 4px auto;
+            position: relative;
+            width: 24px;
+        }
+    }
+
+    .dropdown.nav-item{
+        .dropdown-toggle:after{
+            margin-top: 8px;
+        }
+    }
+
+    .navbar-nav{
+        align-items: center;
+
+        .nav-item{
+            .nav-link{
+                color: $default-color;
+                display: inline-flex;
+                line-height: 1.2;
+                padding: $navbar-padding-a;
+                position: relative;
+
+                &.btn{
+                    margin: $navbar-margin-a-btn;
+                    padding: $padding-base-vertical $padding-base-horizontal;
+                }
+
+                &.btn-round{
+                    margin: $navbar-margin-a-btn-round;
+                }
+
+                [class^="fa"]{
+                    font-size: $font-size-large + 1;
+                    line-height: 40px;
+                    position: relative;
+                    top: 1px;
+                }
+
+                &:hover{
+                    color: $info-color;
+                }
+            }
+
+            .dropdown-menu{
+                border-radius: $border-radius-extreme;
+                margin-top: -5px;
+
+                .dropdown-item{
+                    &:first-child{
+                        border-top-left-radius: 10px;
+                        border-top-right-radius: 10px;
+                    }
+
+                    &:last-child{
+                        border-bottom-left-radius: 10px;
+                        border-bottom-right-radius: 10px;
+                    }
+                }
+
+                .divider{
+                    background-color: #e5e5e5;
+                    height: 1px;
+                    margin: 5px 0;
+                    overflow: hidden;
+                }
+            }
+        }
+
+        .notification{
+            background-color: #fb404b;
+            border-radius: 10px;
+            color: $white-color;
+            font-size: 12px;
+            font-weight: bold;
+            height: 18px;
+            left: 7px;
+            line-height: 18px;
+            min-width: 18px;
+            padding: 0 5px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+        }
+
+        .dropdown-toggle:after{
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px dashed;
+            border-top: 4px solid\9;
+            display: inline-block;
+            height: 0;
+            margin-left: 5px;
+            margin-top: 12px;
+            vertical-align: middle;
+            width: 0;
+        }
+
+
+    }
+
+    .btn{
+       font-size: $font-size-base;
+       margin: $navbar-margin-btn;
+    }
+
+    .btn-simple{
+        font-size: $font-size-medium;
+    }
+
+    &.fixed{
+        border-radius: 0;
+        left: auto;
+        right: 0;
+        width: calc(100% - #{$sidebar-width});
+    }
+
+    .nc-icon{
+        font-weight: 700;
+    }
+}
+
+.navbar-transparent, [class*="navbar-ct"]{
+    .navbar-brand{
+        color: $white-color;
+        @include opacity(.9);
+
+        &:focus,
+        &:hover{
+            background-color: transparent;
+            @include opacity(1);
+            color: $white-color;
+        }
+    }
+
+    .navbar-nav{
+        .nav-item{
+            .nav-link:not(.btn){
+                border-color: $white-color;
+                color: $white-color;
+                @include opacity(0.8);
+            }
+        }
+
+        .active,
+        .nav-item{
+            .nav-link:not(.btn),
+            .nav-link:hover:not(.btn),
+            .nav-link:focus:not(.btn) {
+                background-color: transparent;
+                border-radius: 3px;
+                color: $white-color;
+                @include opacity(1);
+            }
+        }
+
+        .nav .nav-item .nav-link.btn:hover{
+            background-color: transparent;
+        }
+
+        .show{
+            .nav-link,
+            .nav-link:hover,
+            .nav-link:focus{
+                background-color: transparent;
+                color: $white-color;
+                @include opacity(1);
+            }
+        }
+    }
+
+    .btn-default{
+        border-color: $white-color;
+        color: $white-color;
+    }
+
+    .btn-default.btn-fill{
+        background-color: $white-color;
+        color: $dark-gray;
+        @include opacity(.9);
+    }
+
+    .btn-default.btn-fill:hover,
+    .btn-default.btn-fill:focus,
+    .btn-default.btn-fill:active,
+    .btn-default.btn-fill.active,
+    .show .dropdown-toggle.btn-fill.btn-default{
+        border-color: $white-color;
+        @include opacity(1);
+    }
+
+}
+
+.navbar-transparent{
+    .dropdown-menu .divider{
+        background-color: rgba($white-color,.2);
+    }
+}
+
+
+.navbar-default {
+    background-color: $white-navbar;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    .navbar-nav{
+        .nav-item{
+            .nav-link:not(.btn){
+                color: $dark-gray;
+            }
+        }
+
+        .active .nav-link,
+        .active .nav-link:not(.btn):hover,
+        .active .nav-link:not(.btn):focus,
+        .nav-item .nav-link:not(.btn):hover,
+        .nav-item .nav-link:not(.btn):focus{
+            background-color: transparent;
+            border-radius: 3px;
+            color: $info-color;
+            @include opacity(1);
+        }
+
+        .show{
+            .nav-link,
+            .nav-link:hover,
+            .nav-link:focus{
+                background-color: transparent;
+                color: $info-color;
+            }
+        }
+
+
+        .navbar-toggle:hover,.navbar-toggle:focus {
+            background-color: transparent;
+        }
+
+    }
+
+    &:not(.navbar-transparent) .btn-default:hover{
+        border-color: $info-color;
+        color: $info-color;
+    }
+
+    &:not(.navbar-transparent) .btn-neutral,
+    &:not(.navbar-transparent) .btn-neutral:hover,
+    &:not(.navbar-transparent) .btn-neutral:active{
+            color: $dark-gray;
+        }
+}
+
+/*      Navbar with icons            */
+
+.navbar-icons{
+    &.navbar .navbar-brand{
+        margin-bottom: 12px;
+        margin-top: 12px;
+    }
+
+    .navbar-nav{
+        .nav-item{
+            .nav-link{
+                margin: $navbar-margin-a-icons;
+                padding: $navbar-padding-a-icons;
+                text-align: center;
+            }
+        }
+
+        [class^="pe"] {
+            font-size: 30px;
+            position: relative;
+        }
+
+        p {
+            margin: 3px 0 0;
+        }
+    }
+}
+
+.navbar-form{
+   @include box-shadow(none);
+   .form-control{
+        @include light-form();
+        color: $light-gray;
+        font-size: $font-size-navbar;
+        height: 22px;
+        line-height: $line-height-general;
+    }
+
+    .navbar-transparent & .form-control,
+    [class*="navbar-ct"] & .form-control{
+        border: $none;
+        border-bottom: 1px solid rgba($white-color,.6);
+        color: $white-color;
+    }
+
+}
+
+.navbar-ct-blue{
+    @include navbar-color($blue-navbar);
+}
+
+.navbar-ct-azure{
+    @include navbar-color($azure-navbar);
+}
+
+.navbar-ct-green{
+    @include navbar-color($green-navbar);
+}
+
+.navbar-ct-orange{
+    @include navbar-color($orange-navbar);
+}
+
+.navbar-ct-red{
+    @include navbar-color($red-navbar);
+}
+
+.navbar-transparent{
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    padding-top: 15px;
+}
+
+.navbar-toggle{
+    border: $none;
+    margin-bottom: 19px;
+    margin-top: 19px;
+
+    .icon-bar {
+        background-color: $white-color;
+    }
+
+     .navbar-collapse,
+     .navbar-form {
+        border-color: transparent;
+    }
+
+    &.navbar-default .navbar-toggle:hover,
+    &.navbar-default .navbar-toggle:focus {
+        background-color: transparent;
+    }
+}

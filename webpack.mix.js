@@ -11,6 +11,23 @@ const mix = require('laravel-mix');
  |
  */
 
+
+
 mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+    .vue({
+        globalVueStyles: `resources/js/vue/assets/sass/light-bootstrap-dashboard.scss`
+    })
+    .sass('resources/sass/app.scss', 'public/css')
+    .options({
+        processCssUrls: true
+    })
+    .webpackConfig({
+        stats: {
+            children: true,
+        },
+
+    });
+
+
+
+

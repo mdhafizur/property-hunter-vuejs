@@ -1,0 +1,20 @@
+// Opacity
+
+@mixin opacity($opacity) {
+  $opacity-ie: ($opacity * 100);
+  // IE8 filter
+  filter: #{alpha(opacity=$opacity-ie)};
+  opacity: $opacity;
+}
+
+@mixin black-filter($opacity){
+    background-color: rgba(17,17,17,$opacity);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1; 
+}

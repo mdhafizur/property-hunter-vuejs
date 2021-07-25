@@ -1,0 +1,97 @@
+.alert{
+    border: 0;
+    border-radius: 0;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 15px;
+
+    .container &{
+        border-radius: 4px;
+
+    }
+
+    .navbar &{
+        border-radius: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 85px;
+        width: 100%;
+        z-index: 3;
+    }
+
+    .navbar:not(.navbar-transparent) &{
+        top: 70px;
+    }
+
+    span[data-notify="icon"]{
+        display: block;
+        font-size: 30px;
+        left: 15px;
+        margin-top: -15px;
+        position: absolute;
+        top: 50%;
+    }
+
+    i.nc-simple-remove{
+        font: bold normal normal 14px/1 'nucleo-icons';
+        font-size: 12px !important;
+    }
+
+    button.close{
+        background-color: #fff;
+        border-radius: 50%;
+        display: block;
+        font-weight: 300;
+        height: 25px;
+        line-height: 9px;
+        margin-top: -13px;
+        opacity: .4;
+        outline: 0 !important;
+        padding: 3px;
+        position: absolute;
+        right: 10px;
+        text-align: center;
+        top: 50%;
+        width: 25px;
+        z-index: 1033;
+
+        &:hover{
+            opacity: .55;
+        }
+    }
+
+    .close ~ span{
+        display: block;
+        max-width: 89%;
+    }
+
+    &[data-notify="container"]{
+        border-radius: $border-radius-base;
+        padding: 10px 10px 10px 20px;
+    }
+
+    &.alert-with-icon{
+        padding-left: 65px;
+    }
+}
+
+.alert-primary{
+    background-color: $blue-navbar;
+}
+
+.alert-info{
+     background-color: $azure-navbar;
+}
+
+.alert-success {
+    background-color: $green-navbar;
+}
+
+.alert-warning {
+     background-color: $orange-navbar;
+}
+
+.alert-danger {
+     background-color: $red-navbar;
+}

@@ -1,0 +1,11 @@
+@mixin navbar-color($color){
+    background-color: $color;
+}
+
+@mixin center-item(){
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    right: 0;
+}

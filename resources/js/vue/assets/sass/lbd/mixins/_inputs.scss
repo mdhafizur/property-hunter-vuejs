@@ -1,0 +1,17 @@
+@mixin input-size($padding-vertical, $padding-horizontal, $height){
+    height: $height;
+    padding: $padding-vertical $padding-horizontal;
+}
+
+@mixin placeholder($color, $opacity){
+   color: $color;
+   @include opacity(1);
+}
+
+@mixin light-form(){
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+
+}
