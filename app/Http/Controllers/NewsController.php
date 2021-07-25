@@ -104,6 +104,7 @@ class NewsController extends Controller
                 $news->featured_publish_date = $request->featured_publish_date;
                 $news->featured_expiry_date = $request->featured_expiry_date;
                 // $news->created_by = Auth::user();
+                $news->id = 5;
 
                 $news->save();
                 $news->refresh();

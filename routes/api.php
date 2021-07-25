@@ -15,6 +15,8 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AttachmentController;
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,12 @@ Route::delete('/news/{id}', [NewsController::class, 'destroy']);
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
 
+Route::post('/articles', [ArticlesController::class, 'store']);
+Route::put('/articles', [ArticlesController::class, 'update']);
+Route::delete('/articles/{id}', [ArticlesController::class, 'destroy']);
+Route::get('/articles', [ArticlesController::class, 'index']);
+Route::get('/articles/{alias}', [ArticlesController::class, 'show']);
+
 Route::post('/register', [RegisterController::class, 'create']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
@@ -70,7 +78,16 @@ Route::group(['middleware' => ['json.response']], function () {
     Route::get('/otp/verify/{code}', [VerificationController::class, 'verifyOTP']);
 
     //upload file
-    Route::post('/upload', [AttachmentController::class, 'store']);
+    Route::post('file/upload', [AttachmentController::class, 'store']);
+
+    // tags api
+    Route::post('/tags', [TagController::class, 'store']);
+    Route::put('/tags', [TagController::class, 'update']);
+    Route::delete('/tags/{id}', [TagController::class, 'destroy']);
+    Route::get('/tags', [TagController::class, 'index']);
+    Route::get('/tags/{alias}', [TagController::class, 'show']);
+
+    Route::post('email/send', [EmailController::class, 'send']);
 });
 
 

@@ -14,29 +14,33 @@ class CreateTagsTable extends Migration
     public function up()
     {
         Schema::create('tags', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name', 100)->unique();
+            $table->id();
+
+            $table->string('name', 100);
+            $table->string('type', 100);
+            $table->unique(['name', 'type']);
+
             $table->timestamps();
         });
 
         Schema::create('property_tag', function (Blueprint $table) {
             $table->integer('property_id');
             $table->integer('tag_id');
+
             $table->primary(['property_id', 'tag_id']);
         });
-
         Schema::create('news_tag', function (Blueprint $table) {
             $table->integer('news_id');
             $table->integer('tag_id');
+
             $table->primary(['news_id', 'tag_id']);
         });
-
-        Schema::create('development_tag', function (Blueprint $table) {
+        Schema::create('developments_tag', function (Blueprint $table) {
             $table->integer('developments_id');
             $table->integer('tag_id');
+
             $table->primary(['developments_id', 'tag_id']);
         });
-
 
         // $sql = "CREATE TABLE IF NOT EXISTS `tags` (
         //     `id` bigint unsigned not null auto_increment primary key,

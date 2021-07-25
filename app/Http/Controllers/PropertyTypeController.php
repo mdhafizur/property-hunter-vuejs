@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
+use Exception;
 
 class PropertyTypeController extends Controller
 {
@@ -12,9 +13,16 @@ class PropertyTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+
+        try{
+
+        }catch(Exception $exception){
+            return response()->json($exception, 400);
+        }
+
     }
 
     /**
