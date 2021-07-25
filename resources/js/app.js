@@ -11,19 +11,24 @@ require('./bootstrap');
 import Vue from 'vue';
 
 
-import App from './vue/App.vue';
+import App from './vue/App.vue'
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
 // router setup
-import router from './vue/router/router';
+// import router from './vue/router/router';
 
 //store
 import store from './vue/store/store';
 
 // LightBootstrap plugin
-// import LightBootstrap from './vue/light-bootstrap-main';
-// Vue.use(LightBootstrap)
+import LightBootstrap from './vue/light-bootstrap-main';
+Vue.use(LightBootstrap)
+
+// router setup
+import routes from './vue/routes/routes'
 
 // import './vue/registerServiceWorker';
-Vue.use(VueRouter)
 
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 
@@ -76,6 +81,18 @@ Vue.use(CKEditor);
 // });
 
 Vue.config.productionTip = false;
+// configure router
+const router = new VueRouter({
+    routes, // short for routes: routes
+    linkActiveClass: 'nav-item active',
+    scrollBehavior: (to) => {
+        if (to.hash) {
+            return { selector: to.hash }
+        } else {
+            return { x: 0, y: 0 }
+        }
+    }
+})
 
 new Vue({
     router,

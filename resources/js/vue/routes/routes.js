@@ -3,14 +3,14 @@ import DashboardLayout from '../layout/DashboardLayout.vue'
 import NotFound from '../pages/NotFoundPage.vue'
 
 // Admin pages
-import Overview from 'src/pages/Overview.vue'
-import UserProfile from 'src/pages/UserProfile.vue'
-import TableList from 'src/pages/TableList.vue'
-import Typography from 'src/pages/Typography.vue'
-import Icons from 'src/pages/Icons.vue'
-import Maps from 'src/pages/Maps.vue'
-import Notifications from 'src/pages/Notifications.vue'
-import Upgrade from 'src/pages/Upgrade.vue'
+import Overview from '../pages/Overview.vue'
+import UserProfile from '../pages/UserProfile.vue'
+import TableList from '../pages/TableList.vue'
+import Typography from '../pages/Typography.vue'
+import Icons from '../pages/Icons.vue'
+import Maps from '../pages/Maps.vue'
+import Notifications from '../pages/Notifications.vue'
+import Upgrade from '../pages/Upgrade.vue'
 
 const routes = [
   {

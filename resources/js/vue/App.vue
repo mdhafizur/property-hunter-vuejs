@@ -1,6 +1,10 @@
 <template>
-  <div>
+  <!-- <div>
     <Landing />
+  </div> -->
+   <div :class="{'nav-open': $sidebar.showSidebar}">
+    <notifications></notifications>
+    <router-view></router-view>
   </div>
 </template>
 
