@@ -6,6 +6,7 @@ use App\Models\Attachment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class AttachmentController extends Controller
 {
@@ -105,6 +106,7 @@ class AttachmentController extends Controller
                         $extension = ($request->cover['image'])->extension();
                         // save the main image with original size
                         $image_path = ($request->cover['image'])->storeAs('uploads/' . $request->item_type . '/covers', $filename . '-' . time() . '.' . $extension, 'public');
+                        Image::make($cover['image']->getRealPath())->resize(350, 240)->save('storage/uploads/news/thumbnails/' . $filename . '-' . time() . '.' . $extension);
                     }
                     $this->save($request, $attachment_type, $image_path, $filename, $extension, $title, $caption, $order, $cover);
                 }

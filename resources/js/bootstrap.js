@@ -11,7 +11,10 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-} catch (e) {}
+    require("./vue/light-bootstrap-main");
+} catch (e) {
+    console.log('app.js errors', e);
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
