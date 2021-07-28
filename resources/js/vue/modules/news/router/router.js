@@ -7,12 +7,12 @@ import NewsModule from '../NewsModule.vue';
 export default [
     {
         path: '/news',
-        component: NewsModule,
+        component: () => import('@/views/dashboard/Index'),
         name: "NewsModule",
         children: [
             {
                 path: 'create',
-                name: 'news.create',
+                name: 'News Create',
                 component: NewsCreate,
             },
             {

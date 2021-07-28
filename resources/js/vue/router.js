@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import NewsRoutes from '../vue/modules/news/router/router';
+
 Vue.use(Router)
 
 export default new Router({
@@ -56,7 +58,9 @@ export default new Router({
                     path: 'upgrade',
                     component: () => import('@/views/dashboard/Upgrade'),
                 },
+
             ],
         },
+        ...NewsRoutes,
     ],
 })
